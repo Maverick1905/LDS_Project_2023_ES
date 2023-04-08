@@ -5,6 +5,8 @@ from copy import deepcopy
 import numpy as np
 from rich.progress import track
 
+from .time_utils import days_of_week, day_of_week_loop, evaluate_day_diff, day_of_week_generator
+
 #paths and headers of tables
 
 #Do Foreign key check!
@@ -15,46 +17,8 @@ from rich.progress import track
 
 #create a table and populate it
 
+#come vairablile globale per usarlo anche giu´ in "time"
 def create_tables():#(file_name,header):
-
-    def day_of_week_generator(curr_day, prev_day, prev_day_week):
-        def day_of_week_loop(starting_day, day_diff):
-            days_of_week = {
-                "Monday"    : 0,
-                "Tuesday"   : 1,
-                "Wednesday" : 2,
-                "Thursday"  : 3,
-                "Friday"    : 4,
-                "Saturday"  : 5,
-                "Sunday"    : 6
-            }
-            #take a starting day of DB  -  final day * mod7
-            return (days_of_week[starting_day] + day_diff)%7
-
-        #why this ? since you might have more days between one and the previous 
-        month_days_prev = {
-            1 : 31,
-            2 : 28+floor(prev_day["year"]%4),
-            3 : 31,
-            4 : 30,
-            5 : 31,
-            6 : 30,
-            7 : 31,
-            8 : 31,
-            9 : 30,
-            10 : 31,
-            11 : 30,
-            12 : 31
-        } 
-        month_days_curr = deepcopy(month_days_prev)
-        month_days_curr[2] = 28+floor(curr_day["year"]%4),
-        if (curr_day["year"] == prev_day["year"]) & (curr_day["month"] == prev_day["month"]):
-            day_diff = int(curr_day["day"]) - int(prev_day["day"])
-        elif curr_day["year"] == prev_day["year"]:
-            day_diff = curr_day["day"] + sum([i for i in range(month_days_curr[int(curr_day["month"])], month_days_prev[int(prev_day["month"])])]) - prev_day["day"]
-        else:
-            #to write
-        return day_of_week_loop(prev_day_week, day_diff)
 
     vendor_dict = {}
     cpu_dict = {}
@@ -286,12 +250,29 @@ def create_tables():#(file_name,header):
                                         new_row = f"{new_row},{p_key[6:8]}"
 
                             else:
-                                if int(row_value) <= 53:
+                                #day_week_gen = monday Or tuesday etc.
+                                day_of_week = day_of_week_generator(time_dict[p_key], prev_day, prev_day_week)
+                                days_to_sunday = 6 - days_of_week[day_of_week]
+                                first_day_of_year = {
+                                    "day" : 1,
+                                    "month" : 1,
+                                    "year" : time_dict[p_key]["year"]
+                                    }
+
+                                    #effectively a difference
+                                n_days_in_year = evaluate_day_diff(time_dict[p_key], first_day_of_year)
+
+                                #smallest integer larger than value 
+                                n_weeks = ceil((n_days_in_year + days_to_sunday)/7)
+
+                                #check for the dictionary
+                                if int(row_value) == n_weeks:
                                     time_dict[p_key][row_key] = row_value
                                     new_row = f"{new_row},{row_value}"
                                 else:
                                     errors_count["time"]["erroreous_field"] += 1
-                                    pass #to implement
+                                    time_dict[p_key][row_key] = n_weeks
+                                    new_row = f"{new_row},{n_weeks}"
                             
                             #adding quarters
 
@@ -299,13 +280,12 @@ def create_tables():#(file_name,header):
 
                             #create quarter on top since not present
                             quarter = ceil(4*int(time_dict[p_key]["month"])/12)
-                            time_dict[p_key]["quarter"] = quarter
+                            time_dict[p_key]["quarter"] = f"Q{quarter}"
                             new_row = f"{new_row},{quarter}"
 
                             #adding days of week (hard)
                             #il prev day li stai aggiornando di continuo dentro il loop
 
-                            day_of_week = day_of_week_generator(time_dict[p_key], prev_day, prev_day_week)
                             time_dict[p_key]["day_of_week"] = day_of_week
 
                             #for csv table
