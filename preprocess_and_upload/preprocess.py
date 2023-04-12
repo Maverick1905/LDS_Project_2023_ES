@@ -75,6 +75,7 @@ def create_tables():#(file_name,header):
         "day"   : "21"
     }
     prev_day_week = "Thursday"
+    derived_cost_by_day= {}
 
     #os library since adapts the paths in different OS
     #table_name = vendor, info = path and headers 
@@ -347,6 +348,11 @@ def create_tables():#(file_name,header):
                                 
                                 if time_dict.get(f"{row_value}"):
                                     new_row = f"{new_row},{row_value}"
+                                    
+                                    #add cost derived
+                                    sales_day=row_value
+                                    if not derived_cost_by_day.get(row_value):
+                                        derived_cost_by_day[row_value]=np.random.normal(0.9,0.05)
                                 else:
                                     line_check = False
                                     errors_count["fact"]["foreign_key_error"] += 1
@@ -389,7 +395,7 @@ def create_tables():#(file_name,header):
                                     errors_count["fact"]["erroneous_field"] += 1
                                     break
                                 if row_key == "sales_uds":
-                                    cost = row_value*np.random.normal(0.9, 0.05)
+                                    cost = row_value*derived_cost_by_day[sales_day]
                                     
                         if line_check:    
                             new_row = f"{new_row},{cost:.2f}"
