@@ -1,5 +1,6 @@
 import os
 import csv
+import pyodbc
 from rich.progress import track
 
 def open_conn():
