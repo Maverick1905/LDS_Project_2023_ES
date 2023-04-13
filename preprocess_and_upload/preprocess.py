@@ -21,6 +21,8 @@ from time_utils import days_of_week, day_of_week_loop, evaluate_day_diff, day_of
 #come vairablile globale per usarlo anche giu´ in "time"
 def create_tables():#(file_name,header):
 
+    np.random.seed(1)
+
     vendor_dict = {}
     cpu_dict = {}
     geo_dict = {}
