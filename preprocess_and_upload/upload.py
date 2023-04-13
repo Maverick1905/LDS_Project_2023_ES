@@ -39,7 +39,7 @@ def load_tables():
 
     for table_name, path in tables_path.items():
         with open (path,'r') as table_file:
-            reader=csv(DictReader(table_file))
+            reader=csv.DictReader(table_file)
             commit=0
             for row in track(reader):
                 #line to populate to db
