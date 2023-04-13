@@ -1,3 +1,5 @@
+import os
+import csv
 from rich.progress import track
 
 def open_conn():
@@ -46,7 +48,7 @@ def load_tables():
                 try:
 
                     #table name is the name of our tables (in dict above)
-                    query = f"INSERT INTO ["pileggi_mura"].[{table_name}] VALUES ({to_send[1:]});" #SQL
+                    query = f"INSERT INTO ['pileggi_mura_DB'].[{table_name}] VALUES ({to_send[1:]});" #SQL
                     cursor.execute(query)
                 except Exception as e:
                     print(f"Failed upload upon query:\n{query}")
