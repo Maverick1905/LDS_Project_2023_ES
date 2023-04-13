@@ -2,6 +2,7 @@ import os
 import csv
 import pyodbc
 from rich.progress import track
+from rich.console import Console
 
 def open_conn():
     server = "lds.di.unipi.it"  # lds.di.unipi.it
@@ -68,4 +69,7 @@ def load_tables():
     close_conn(cn, cursor)
 
 if __name__ == "__main__":
+    console = Console()
+    console.log("Loading data onto server")
     load_tables()
+    console.log("Upload completed")
