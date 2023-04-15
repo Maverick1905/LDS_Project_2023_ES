@@ -291,7 +291,7 @@ def create_tables():#(file_name,header):
                                 
                             quarter = ceil(4*int(time_dict[p_key]["month"])/12)
                             time_dict[p_key]["quarter"] = f"Q{quarter}"
-                            new_row = f"{new_row},{quarter}"
+                            new_row = f"{new_row},Q{quarter}"
 
                             #adding days of week (hard)
                             #il prev day li stai aggiornando di continuo dentro il loop
@@ -401,7 +401,8 @@ def create_tables():#(file_name,header):
                                     
                         if line_check:    
                             new_row = f"{new_row},{cost:.2f}"
-                            #counter if everything is fine for the PK            
+                            #counter if everything is fine for the PK
+                            #line_check = False if fact_counter < 1403300 else True
                             new_row = f",{fact_counter}{new_row}"
                             fact_counter += 1
                             
