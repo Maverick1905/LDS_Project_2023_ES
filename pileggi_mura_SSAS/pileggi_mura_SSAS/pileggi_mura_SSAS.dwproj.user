@@ -1,0 +1,29 @@
+<AnalysisServicesUserConfiguration xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0">
+  <Configurations>
+    <Configuration>
+      <Name>Development</Name>
+      <Options>
+        <UserIDs>
+          <ConfigurationSetting>
+            <Id>Pileggi Mura DB</Id>
+            <Name>Pileggi Mura DB</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA2h2RDLRLeECeV5Q3hSkH3wAAAAAgAAAAUABpAGwAZQBnAGcAaQAgAE0AdQByAGEAIABEAEIAAAAQZgAAAAEAACAAAAB2VCGTdNtPhgzc7mnl2Mh1+WkRXRdVmTF49hdSzcZW8QAAAAAOgAAAAAIAACAAAADSjJl4xDZAk0BxfuOvBKr3f5DG9+5MJfw++WmLVG6KnSAAAADapJjdyAs9zyA0sdOTxhxdeL9g1s/PF6srceAlDu9JJUAAAACp/Zft9ID7yIkMx/eZd+aI0PVYcSqlHIkWjgL+WGEDuXiyMCZ5sen7oWaxGkCn4UP3A6uyCtvlFLpvhGNrPHmF</Value>
+          </ConfigurationSetting>
+        </UserIDs>
+        <UserPasswords>
+          <ConfigurationSetting>
+            <Id>Pileggi Mura DB</Id>
+            <Name>Pileggi Mura DB</Name>
+            <Value xsi:type="xsd:string">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA2h2RDLRLeECeV5Q3hSkH3wAAAAAgAAAAUABpAGwAZQBnAGcAaQAgAE0AdQByAGEAIABEAEIAAAAQZgAAAAEAACAAAACRe3Oq5CvOvXuAfucxidbDdAPzXQ2fd3v5de9oukkSIAAAAAAOgAAAAAIAACAAAADAQXL2OzvJzxSGwlec62SKwsxd8Z3/0O0BgKYzBjbvpiAAAAC/oRC3ZI2YwJfRCYSzH7ol7uVDh+to1ZYX71brBqEpx0AAAAD7pINACJT1mmx32ybL0FWkNE4Bagp87aiZ0nm1k/rzQzfeV8oBYInPNT80smiEkJaKOR3p7V+PPiib2GgzNHVl</Value>
+          </ConfigurationSetting>
+        </UserPasswords>
+        <TargetServer>http://lds.di.unipi.it/olap/msmdpump.dll</TargetServer>
+        <TargetDatabase>pileggi_mura_SSAS</TargetDatabase>
+        <StartObject>
+          <ObjectId></ObjectId>
+          <ObjectType>Current</ObjectType>
+        </StartObject>
+      </Options>
+    </Configuration>
+  </Configurations>
+</AnalysisServicesUserConfiguration>

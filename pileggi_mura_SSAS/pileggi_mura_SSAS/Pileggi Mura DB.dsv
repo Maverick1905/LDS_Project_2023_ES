@@ -1,0 +1,210 @@
+﻿<DataSourceView xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ddl2="http://schemas.microsoft.com/analysisservices/2003/engine/2" xmlns:ddl2_2="http://schemas.microsoft.com/analysisservices/2003/engine/2/2" xmlns:ddl100_100="http://schemas.microsoft.com/analysisservices/2008/engine/100/100" xmlns:ddl200="http://schemas.microsoft.com/analysisservices/2010/engine/200" xmlns:ddl200_200="http://schemas.microsoft.com/analysisservices/2010/engine/200/200" xmlns:ddl300="http://schemas.microsoft.com/analysisservices/2011/engine/300" xmlns:ddl300_300="http://schemas.microsoft.com/analysisservices/2011/engine/300/300" xmlns:ddl400="http://schemas.microsoft.com/analysisservices/2012/engine/400" xmlns:ddl400_400="http://schemas.microsoft.com/analysisservices/2012/engine/400/400" xmlns:ddl500="http://schemas.microsoft.com/analysisservices/2013/engine/500" xmlns:ddl500_500="http://schemas.microsoft.com/analysisservices/2013/engine/500/500" xmlns:dwd="http://schemas.microsoft.com/DataWarehouse/Designer/1.0" dwd:design-time-name="66020696-e683-46fb-9e4d-f3181fc7eb15" xmlns="http://schemas.microsoft.com/analysisservices/2003/engine">
+  <ID>Pileggi Mura DB</ID>
+  <Name>Pileggi Mura DB</Name>
+  <CreatedTimestamp>0001-01-01T00:00:00Z</CreatedTimestamp>
+  <LastSchemaUpdate>0001-01-01T00:00:00Z</LastSchemaUpdate>
+  <Annotations>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:ShowFriendlyNames</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:CurrentLayout</Name>
+      <Value>_ALL_TABLES_</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:NameMatchingCriteria</Name>
+      <Value>1</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:SchemaRestriction</Name>
+      <Value></Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:RetrieveRelationships</Name>
+      <Value>true</Value>
+    </Annotation>
+    <Annotation>
+      <Name>http://schemas.microsoft.com/DataWarehouse/Designer/1.0:Layouts</Name>
+      <Value>
+        <Layouts xmlns="">
+          <Diagram>
+            <Name>_ALL_TABLES_</Name>
+            <DiagramLayout />
+            <ShowRelationshipNames>False</ShowRelationshipNames>
+            <UseDiagramDefaultLayout>True</UseDiagramDefaultLayout>
+            <DiagramViewPortLeft>0</DiagramViewPortLeft>
+            <DiagramViewPortTop>0</DiagramViewPortTop>
+            <DiagramBoundingLeft>0</DiagramBoundingLeft>
+            <DiagramBoundingTop>0</DiagramBoundingTop>
+            <DiagramZoom>100</DiagramZoom>
+          </Diagram>
+        </Layouts>
+      </Value>
+    </Annotation>
+  </Annotations>
+  <DataSourceID>Pileggi Mura DB</DataSourceID>
+  <Schema>
+    <xs:schema id="Pileggi_x0020_Mura_x0020_DB" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" xmlns:msprop="urn:schemas-microsoft-com:xml-msprop">
+      <xs:element name="Pileggi_x0020_Mura_x0020_DB" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:design-time-name="99bcda2b-eed6-4248-973c-1168a8e4634d">
+        <xs:complexType>
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element name="pileggi_mura_cpu" msprop:design-time-name="87341583-7e1d-4671-ae8e-0d736e69e2ee" msprop:DbTableName="cpu" msprop:FriendlyName="cpu" msprop:DbSchemaName="pileggi_mura" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="cpu_code" msprop:design-time-name="0a39e211-bd30-4605-a045-9e2f2d5857d3" msprop:DbColumnName="cpu_code" msprop:FriendlyName="cpu_code" type="xs:int" />
+                  <xs:element name="brand" msprop:design-time-name="8c1cb8f8-1499-4c90-857f-3391216fb9f4" msprop:DbColumnName="brand" msprop:FriendlyName="brand">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="series" msprop:design-time-name="d5beb9c1-0523-49cf-ab4b-93357b9c28fc" msprop:DbColumnName="series" msprop:FriendlyName="series">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="name" msprop:design-time-name="e6878b7a-11c2-4fb7-a889-9fe1010ae2de" msprop:DbColumnName="name" msprop:FriendlyName="name">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="n_cores" msprop:design-time-name="43dcecb3-8bfa-490c-9d37-aa174f1e1884" msprop:DbColumnName="n_cores" msprop:FriendlyName="n_cores" type="xs:int" />
+                  <xs:element name="socket" msprop:design-time-name="76632b79-2b66-4894-8920-e57430d5e3b3" msprop:DbColumnName="socket" msprop:FriendlyName="socket">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="pileggi_mura_fact" msprop:design-time-name="aeff2534-b841-4005-a53d-41f43b1244d8" msprop:DbTableName="fact" msprop:FriendlyName="fact" msprop:DbSchemaName="pileggi_mura" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="Id" msprop:design-time-name="0f10a6b8-6a9b-44e3-9640-faee6441dcb0" msprop:DbColumnName="Id" msprop:FriendlyName="Id" type="xs:int" />
+                  <xs:element name="cpu_code" msprop:design-time-name="b0f6c770-ed60-4b8c-b8d1-6781c9456266" msprop:DbColumnName="cpu_code" msprop:FriendlyName="cpu_code" type="xs:int" />
+                  <xs:element name="time_code" msprop:design-time-name="c956496b-4e68-49f7-a6c2-fdeac64acc5f" msprop:DbColumnName="time_code" msprop:FriendlyName="time_code" type="xs:int" />
+                  <xs:element name="geo_code" msprop:design-time-name="c97b1963-bcae-4ce1-ba0c-d8384dfc813c" msprop:DbColumnName="geo_code" msprop:FriendlyName="geo_code" type="xs:int" />
+                  <xs:element name="vendor_code" msprop:design-time-name="0db65dae-b86c-4c9a-965d-d1a692a13c15" msprop:DbColumnName="vendor_code" msprop:FriendlyName="vendor_code" type="xs:int" />
+                  <xs:element name="sales_usd" msprop:design-time-name="64c0c6a8-cb2b-46ce-b8ac-4de59f355c4f" msprop:DbColumnName="sales_usd" msprop:FriendlyName="sales_usd" type="xs:double" />
+                  <xs:element name="sales_currency" msprop:design-time-name="86672ccf-34fd-4877-b007-d8663f723311" msprop:DbColumnName="sales_currency" msprop:FriendlyName="sales_currency" type="xs:double" />
+                  <xs:element name="cost" msprop:design-time-name="faf9de29-8754-44ef-b2f4-d07731369e86" msprop:DbColumnName="cost" msprop:FriendlyName="cost" type="xs:double" />
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="pileggi_mura_geography" msprop:design-time-name="c4687d0e-83ec-4899-b5db-abdb96db679d" msprop:DbTableName="geography" msprop:FriendlyName="geography" msprop:DbSchemaName="pileggi_mura" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="geo_code" msprop:design-time-name="e02cb16f-1ed0-46f6-8f86-370662212f9f" msprop:DbColumnName="geo_code" msprop:FriendlyName="geo_code" type="xs:int" />
+                  <xs:element name="continent" msprop:design-time-name="a14952dd-da7c-4cdc-8c52-8c9941b6c7e8" msprop:DbColumnName="continent" msprop:FriendlyName="continent">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="country" msprop:design-time-name="9eede94a-7cb6-4f35-bd81-fb3a8afba4bd" msprop:DbColumnName="country" msprop:FriendlyName="country">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="region" msprop:design-time-name="8df1a05f-2503-45ea-b53a-8043b93967b1" msprop:DbColumnName="region" msprop:FriendlyName="region">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="currency" msprop:design-time-name="d0a07644-1f99-448a-a185-af25c907c788" msprop:DbColumnName="currency" msprop:FriendlyName="currency">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="pileggi_mura_time" msprop:design-time-name="f963b71f-85a4-44e6-a300-844dfb8a0fc2" msprop:DbTableName="time" msprop:FriendlyName="time" msprop:DbSchemaName="pileggi_mura" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="time_code" msprop:design-time-name="2636c74f-1e9b-4276-9de1-0effa8afceae" msprop:DbColumnName="time_code" msprop:FriendlyName="time_code" type="xs:int" />
+                  <xs:element name="year" msprop:design-time-name="0cd6d4df-d2f0-41bb-b11f-fa43f488cd48" msprop:DbColumnName="year" msprop:FriendlyName="year" type="xs:int" />
+                  <xs:element name="month" msprop:design-time-name="c60a3919-fc2d-4bd1-9ce7-c8565f13f6ba" msprop:DbColumnName="month" msprop:FriendlyName="month" type="xs:int" />
+                  <xs:element name="day" msprop:design-time-name="414833dc-b222-445c-b7a3-c2e076b83fe4" msprop:DbColumnName="day" msprop:FriendlyName="day" type="xs:int" />
+                  <xs:element name="week" msprop:design-time-name="3d85dc8c-cb08-40eb-8e0f-b5f2d6f5fb68" msprop:DbColumnName="week" msprop:FriendlyName="week" type="xs:int" />
+                  <xs:element name="quarter" msprop:design-time-name="a78bf75c-8599-4991-be90-23ad34fcc709" msprop:DbColumnName="quarter" msprop:FriendlyName="quarter">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="10" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                  <xs:element name="day_of_week" msprop:design-time-name="938e421a-5761-4427-a024-6226d1c5beef" msprop:DbColumnName="day_of_week" msprop:FriendlyName="day_of_week">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="15" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+            <xs:element name="pileggi_mura_vendor" msprop:design-time-name="cf3525b4-d950-4816-a49a-cf2e80a92626" msprop:DbTableName="vendor" msprop:FriendlyName="vendor" msprop:DbSchemaName="pileggi_mura" msprop:TableType="Table">
+              <xs:complexType>
+                <xs:sequence>
+                  <xs:element name="vendor_code" msprop:design-time-name="cc07d5a5-1ade-412b-b232-12594296168b" msprop:DbColumnName="vendor_code" msprop:FriendlyName="vendor_code" type="xs:int" />
+                  <xs:element name="name" msprop:design-time-name="d1422bda-dbc6-4159-a43e-a7012fdc8465" msprop:DbColumnName="name" msprop:FriendlyName="name">
+                    <xs:simpleType>
+                      <xs:restriction base="xs:string">
+                        <xs:maxLength value="50" />
+                      </xs:restriction>
+                    </xs:simpleType>
+                  </xs:element>
+                </xs:sequence>
+              </xs:complexType>
+            </xs:element>
+          </xs:choice>
+        </xs:complexType>
+        <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//pileggi_mura_cpu" />
+          <xs:field xpath="cpu_code" />
+        </xs:unique>
+        <xs:unique name="pileggi_mura_fact_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//pileggi_mura_fact" />
+          <xs:field xpath="Id" />
+        </xs:unique>
+        <xs:unique name="pileggi_mura_geography_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//pileggi_mura_geography" />
+          <xs:field xpath="geo_code" />
+        </xs:unique>
+        <xs:unique name="pileggi_mura_time_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//pileggi_mura_time" />
+          <xs:field xpath="time_code" />
+        </xs:unique>
+        <xs:unique name="pileggi_mura_vendor_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+          <xs:selector xpath=".//pileggi_mura_vendor" />
+          <xs:field xpath="vendor_code" />
+        </xs:unique>
+      </xs:element>
+      <xs:annotation>
+        <xs:appinfo>
+          <msdata:Relationship name="fact-cpu" msdata:parent="pileggi_mura_cpu" msdata:child="pileggi_mura_fact" msdata:parentkey="cpu_code" msdata:childkey="cpu_code" />
+          <msdata:Relationship name="fact-time" msdata:parent="pileggi_mura_time" msdata:child="pileggi_mura_fact" msdata:parentkey="time_code" msdata:childkey="time_code" />
+          <msdata:Relationship name="fact-geography" msdata:parent="pileggi_mura_geography" msdata:child="pileggi_mura_fact" msdata:parentkey="geo_code" msdata:childkey="geo_code" />
+          <msdata:Relationship name="fact-vendor" msdata:parent="pileggi_mura_vendor" msdata:child="pileggi_mura_fact" msdata:parentkey="vendor_code" msdata:childkey="vendor_code" />
+        </xs:appinfo>
+      </xs:annotation>
+    </xs:schema>
+    <Pileggi_x0020_Mura_x0020_DB xmlns="" />
+  </Schema>
+</DataSourceView>
