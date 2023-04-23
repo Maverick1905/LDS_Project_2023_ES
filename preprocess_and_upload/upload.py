@@ -146,9 +146,8 @@ def load_tables():
                         lines_done += 1
                 if commit > 0:
                     cn.commit()
-            if table_name not in tables_done:
-                print(f"Upload of table {table_name} performed succesfully.")
-                tables_done.append(table_name)
+            print(f"Upload of table {table_name} performed succesfully.")
+            tables_done.append(table_name)
             lines_done = 0
     # close connection
     close_conn(cn, cursor)
