@@ -8,9 +8,9 @@ from rich.console import Console
 def write_log(tables_done, curr_row):
     tables = ""
     for table in tables_done:
-        tables = f"{tables}{table}, "
+        tables = f"{tables}{table},"
     with open("log.txt", 'w') as log:
-        log.write(f"### LOG FILE ###\nCompleted tables:\n{tables[:-2]}\n")
+        log.write(f"### LOG FILE ###\nCompleted tables:\n{tables[:-1]}\n")
         log.write(f"Number of committed rows:\n{curr_row}")
 
 def read_log():
@@ -18,7 +18,6 @@ def read_log():
         with open("log.txt", 'r') as log:
             rows = log.readlines()
             tables_done = rows[2].strip().split(',')
-            print(tables_done)
             curr_row = int(rows[4])
     except FileNotFoundError:
         tables_done, curr_row = [], 0
@@ -109,7 +108,7 @@ def load_tables():
                 commit = 0
                 lines_done = 0
                 for row in track(reader):
-                    if lines_done > curr_row:
+                    if lines_done >= curr_row:
                         #line to populate to db
                         to_send = ""
                         for row_key, row_value in row.items():
@@ -141,15 +140,14 @@ def load_tables():
                             cn.commit()
                             lines_done += commit
                             commit = 0
-            # if there are "leftover" rows, commit them too.
                     else:
                         lines_done += 1
+            # if there are "leftover" rows, commit them too.
                 if commit > 0:
                     cn.commit()
             print(f"Upload of table {table_name} performed succesfully.")
-            if table_name not in tables_done:
-                tables_done.append(table_name)
-                lines_done = 0
+            tables_done.append(table_name)
+            lines_done = 0
     # close connection
     close_conn(cn, cursor)
     delete_log()
