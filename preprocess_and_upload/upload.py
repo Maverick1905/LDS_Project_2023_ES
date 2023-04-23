@@ -109,7 +109,7 @@ def load_tables():
                 commit = 0
                 lines_done = 0
                 for row in track(reader):
-                    if lines_done >= curr_row:
+                    if lines_done > curr_row:
                         #line to populate to db
                         to_send = ""
                         for row_key, row_value in row.items():
@@ -142,6 +142,8 @@ def load_tables():
                             lines_done += commit
                             commit = 0
             # if there are "leftover" rows, commit them too.
+                    else:
+                        lines_done += 1
                 if commit > 0:
                     cn.commit()
             if table_name not in tables_done:
