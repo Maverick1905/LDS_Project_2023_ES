@@ -11,9 +11,9 @@ def write_log(tables_done, curr_row):
 
     ### LOG FILE ###
     Completed tables:
-    ###,###,###
+    table1,table2,table3
     Number of committed rows:
-    ###
+    n_rows
 
     params:
         - tables_done: list containing names of the successfully
