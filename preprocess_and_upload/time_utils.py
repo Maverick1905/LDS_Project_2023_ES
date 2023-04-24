@@ -98,9 +98,7 @@ def evaluate_day_diff(curr_day, prev_day):
     #the end of its year
     else:
         day_diff = sum([month_days_prev[i] for i in range(prev_day_m, 13)])  - prev_day_d \
-
         + sum([365 if i%4 != 0 else 366 for i in range(prev_day_y+1, curr_day_y)]) \
-
         + sum([month_days_curr[i] for i in range(1, curr_day_m)]) + curr_day_d
 
     return day_diff
