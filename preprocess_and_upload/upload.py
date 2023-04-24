@@ -1,7 +1,6 @@
 import os
 import csv
 import pyodbc
-import itertools
 from rich.progress import track
 from rich.console import Console
 
