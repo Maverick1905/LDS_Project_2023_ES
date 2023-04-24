@@ -8,21 +8,11 @@ from rich.progress import track
 
 from time_utils import days_of_week, day_of_week_loop, evaluate_day_diff, day_of_week_generator
 
-#paths and headers of tables
-
-#Do Foreign key check!
-
-#TODO: Store for every table number of incorrect lines
-#headers in dict tables_info may not be needed;
-#we're not scanning a single mixed up table after all
-
-#create a table and populate it
-
-#come vairablile globale per usarlo anche giu´ in "time"
-def create_tables():#(file_name,header):
+def create_tables():
 
     np.random.seed(1)
 
+    #dictionaries for primary foreign key constraint enforcement
     vendor_dict = {}
     cpu_dict = {}
     geo_dict = {}
@@ -31,7 +21,6 @@ def create_tables():#(file_name,header):
     data_folder = "original_dataset"
     tables_info = {
         "vendor" :
-            #".."vai alla tabella precedente
             {"path" : os.path.join("..",data_folder, "vendor.csv"),
             "header" : ["vendor_code", "name"]},
         "cpu" :
@@ -71,52 +60,51 @@ def create_tables():#(file_name,header):
             }
     }
 
+    #base date to evaluate day_of_week
     prev_day = {
         "year"  : "2013",
         "month" : "3",
         "day"   : "21"
     }
     prev_day_week = "Thursday"
+
+    #dictionary to store sampled cost percentage w.r.t. sales_usd
     derived_cost_by_day= {}
 
-    #os library since adapts the paths in different OS
-    #table_name = vendor, info = path and headers 
     out_folder = "cleaned_dataset"
     if not os.path.exists(out_folder):
         os.makedirs(out_folder)
    
     for table_name, info in tables_info.items(): 
-        with open(os.path.join("..",out_folder, f"{table_name}.csv"), mode="w+") as To_Populate:  #file to populate
+        with open(os.path.join("..",out_folder, f"{table_name}.csv"), mode="w+") as To_Populate:
         
-            To_Populate.write(f"{','.join(info['header'])}\n") #####write the header on top
+            #header line
+            To_Populate.write(f"{','.join(info['header'])}\n")
             
-            #pick from the path...time.csv etc. only read
             with open(info["path"], 'r') as source:
                 
-                
+                #counter for fact table's primary key
                 fact_counter = 1
+
                 for row in track(csv.DictReader(source)):
+                    #control variable for erroneous lines; if True print line in file, do nothing otherwise
                     line_check = True
                     new_row = ""
-                    if table_name == "vendor": #open vendor.csv
+                    if table_name == "vendor":
                         for row_key, row_value in row.items():
                             if row_key == "vendor_code":
+                                #enforce primary key constraint
                                 if vendor_dict.get(row_value):
                                     line_check = False
                                     errors_count["vendor"]["primary_key_error"] += 1
                                     break
                                 else:
-                                    #write primary key constraint enforcement
-                                    #I LOVE IT!!!
                                     vendor_dict[row_value] = {}
-                                    p_key = row_value #to retrieve primary key for next iterations along row
-
-                                    #this will be the new rows but only in the CSV
+                                    #to retrieve primary key along the line
+                                    p_key = row_value
                                     new_row = f"{new_row},{row_value}"
-                            else: 
-                                #here populate everything after the primary key
-                                #this will come aft3rwards at the 
-                                #end of each iteration
+                            else:
+                                #check for missing fields
                                 if row_value:
                                     vendor_dict[p_key][row_key] = row_value
                                     new_row = f"{new_row},{row_value}"
@@ -135,18 +123,10 @@ def create_tables():#(file_name,header):
                                     errors_count["cpu"]["primary_key_error"] += 1
                                     break
                                 else:
-                                    #write primary key constraint enforcement
-                                    #I LOVE IT!!!
                                     cpu_dict[row_value] = {}
-                                    p_key = row_value #to retrieve primary key for next iterations along row
-
-                                    #this will be the new rows but only in the CSV
+                                    p_key = row_value
                                     new_row = f"{new_row},{row_value}"
-                            else: 
-                                #this will come aft3rwards at the 
-                                #end of each iteration
-
-                                #if row value has none then do the else otherwise keep it
+                            else:
                                 if row_value:
                                     cpu_dict[p_key][row_key] = row_value
                                     new_row = f"{new_row},{row_value}"
@@ -157,36 +137,22 @@ def create_tables():#(file_name,header):
                                     break
 
 
-                    elif table_name=="geography":
-                        #basically this below gives already a dicitonary
-                        #vendor_code:1
-                        #name:1StWaves
+                    elif table_name == "geography":
                         for row_key, row_value in row.items():
-                            if row_key=="geo_code":
-                                #check if value already in the dictionary, then break and exclude the row
+                            if row_key == "geo_code":
                                 if geo_dict.get(row_value):
                                     line_check = False
                                     errors_count["geography"]["primary_key_error"] += 1
-                                    break #do not consider the line with same PK_ID
+                                    break
                                 else:
-                                    #geneate the vendor dict: {1:{}}
-                                    geo_dict[row_value]={}
-                                    #now create the primary key 
-                                    p_key=row_value
-                                    
-                                    #print in the csv like this (for now empty = ,1 ... ,2 etc.)
+                                    geo_dict[row_value] = {}
+                                    p_key = row_value
                                     new_row=f"{new_row},{row_value}"
                                     
                             else:
-                                #populate the dictionary with the pk and other values
                                 if row_value:
                                     geo_dict[p_key][row_key]=row_value
-                                    #print (geography_dict)
-                                #{1:{'name':'1StWabe Technologies'}}
-                                    #add this to the coming .csv file
                                     new_row=f"{new_row},{row_value}"
-                                
-                                #isn´t this too much ?
                                 else:
                                     line_check = False
                                     errors_count["cpu"]["erroneous_field"] += 1
@@ -195,24 +161,18 @@ def create_tables():#(file_name,header):
 
                     elif table_name == "time":
                         for row_key, row_value in row.items():
-                            if row_key == "time_code":
-
-                                #prendi colum time code, se il valore in 
-                                #time_code dict e´ gia´ la, break 
+                            if row_key == "time_code": 
                                 if time_dict.get(row_value):
                                     line_check = False
                                     errors_count["time"]["primary_key_error"] += 1
-                                    #keep track of incorrect lines somewhere
                                     break
                                 else:
-                                    
-                                    #if key not in dictionary, populate since 
-                                    #the column is the one of primary key
                                     time_dict[row_value] = {}
                                     p_key = row_value
                                     new_row = f"{new_row},{row_value}"
                                 
                             elif row_key == "year":
+                                #check if year consistent with time_id, otherwise use time_id to retrie it
                                 if row_value == p_key[:4]:
                                     time_dict[p_key][row_key] = row_value
                                     new_row = f"{new_row},{row_value}"
@@ -222,6 +182,7 @@ def create_tables():#(file_name,header):
                                     new_row = f"{new_row},{p_key[:4]}"
                                 
                             elif row_key == "month":
+                                #check if month consistent
                                 if int(row_value) < 10:
                                     if row_value == p_key[5]:
                                         time_dict[p_key][row_key] = row_value
@@ -240,6 +201,7 @@ def create_tables():#(file_name,header):
                                         new_row = f"{new_row},{p_key[4:6]}"
                                 
                             elif row_key == "day":
+                                #check if day consistent
                                 if int(row_value) < 10:
                                     if row_value == p_key[7]:
                                         time_dict[p_key][row_key] = row_value
@@ -258,22 +220,20 @@ def create_tables():#(file_name,header):
                                         new_row = f"{new_row},{p_key[6:8]}"
 
                             else:
-                                #day_week_gen = monday Or tuesday etc.
+                                #generate day_of_week using day_of_week and date of previous line
                                 day_of_week = day_of_week_generator(time_dict[p_key], prev_day, prev_day_week)
+                                #find number of days from fist day of the year to the Sunday of the current day's week;
+                                #we need this to verify week number of current line
                                 days_to_sunday = 6 - days_of_week[day_of_week]
                                 first_day_of_year = {
                                     "day" : 1,
                                     "month" : 1,
                                     "year" : time_dict[p_key]["year"]
                                     }
-
-                                    #effectively a difference
                                 n_days_in_year = evaluate_day_diff(time_dict[p_key], first_day_of_year)
-
-                                #smallest integer larger than value 
                                 n_weeks = ceil((n_days_in_year + days_to_sunday)/7)
 
-                                #check for the dictionary
+                                #check week number
                                 if int(row_value) == n_weeks:
                                     time_dict[p_key][row_key] = row_value
                                     new_row = f"{new_row},{row_value}"
@@ -282,87 +242,63 @@ def create_tables():#(file_name,header):
                                     time_dict[p_key][row_key] = n_weeks
                                     new_row = f"{new_row},{n_weeks}"
                             
-                            #adding quarters
-
-                            #ceil is the intero maggiore ex 1,2 = 2
-
-                        #create quarter on top since not present  
                         if line_check:
                                 
+                            #find quarters using months
                             quarter = ceil(4*int(time_dict[p_key]["month"])/12)
                             time_dict[p_key]["quarter"] = f"Q{quarter}"
                             new_row = f"{new_row},Q{quarter}"
-
-                            #adding days of week (hard)
-                            #il prev day li stai aggiornando di continuo dentro il loop
         
                             time_dict[p_key]["day_of_week"] = day_of_week
         
-                            #for csv table
                             new_row = f"{new_row},{day_of_week}"    
         
-                            #i+1 = i 
+                            #to use for week's day of next line
                             prev_day, prev_day_week = time_dict[p_key], day_of_week
 
-                    #choose table
                     if table_name=="fact":
                         for row_key, row_value in row.items():
-                            #use first header for PK unicity
-                            
-                            #if the first column in df is nop header, pass
-                            #dummy primary csv.DictReader
+                            #dummy primary key created by csv.DictReader
                             if row_key=="":
                                 pass
                     
+                            #dummy spurious id
                             elif row_key=="Id":
-                                #if in fact_dict there is already a pk which is the same, then skip it (will be double)
                                 pass
                                  
-                            # OR key
+                            #gpu_code and ram_code: discard lines where they are not null
                             elif (row_key == "gpu_code") | (row_key == "ram_code"):
-
-                                #if column is gpu or ram,if there is a vlue break (not need to have it) 
-                                #print fo FK erroneous
                                 if row_value:
                                     line_check = False
                                     break
                                 else:
-                                    #else pass to the next column 
                                     pass
 
                             elif row_key == "cpu_code":
-                                #enforce foreign key constraint
-                                #check if the cpu:_code of the fact exists in the dimension table
-                                #se esiste, in the cpu_dict, foreign key enforcement is confirmed, then new row.......
-                                
+                                #enforce foreign key constraint for cpu_code through dictionary
                                 if cpu_dict.get(f"{row_value[:-2]}"):
-
-                                    #csv
                                     new_row = f"{new_row},{row_value[:-2]}"
                                 else:
                                     line_check = False
                                     errors_count["fact"]["foreign_key_error"] += 1 
                                     break
+ 
                             elif row_key == "time_code":
-                                #enforce foreign key constraint
-                                #check if the time:_code of the fact exists in the dimension table
-                                #se esiste, in the cpu_dict, foreign key enforcement is confirmed, then new row.......
-                                
+                                #enforce foreign key constraint for time_code through dictionary
                                 if time_dict.get(f"{row_value}"):
                                     new_row = f"{new_row},{row_value}"
                                     
                                     #add cost derived
-                                    sales_day=row_value
+                                    sales_day = row_value
+                                    #if haven't sampled yet, then sample
                                     if not derived_cost_by_day.get(row_value):
-                                        derived_cost_by_day[row_value]=np.random.normal(0.9,0.05)
+                                        derived_cost_by_day[row_value] = np.random.normal(0.9,0.05)
                                 else:
                                     line_check = False
                                     errors_count["fact"]["foreign_key_error"] += 1
                                     break
                             elif row_key == "geo_code":
-                                #enforce foreign key constraint
-                                #check if the geo:_code of the fact exists in the dimension table
-                                #se esiste, in the cpu_dict, foreign key enforcement is confirmed, then new row.......
+                                #enforce foreign key constraint for geo_code through dictionary
                                 
                                 if geo_dict.get(f"{row_value}"):
                                     new_row = f"{new_row},{row_value}"
@@ -371,9 +307,7 @@ def create_tables():#(file_name,header):
                                     errors_count["fact"]["foreign_key_error"] += 1
                                     break
                             elif row_key == "vendor_code":
-                                #enforce foreign key constraint
-                                #check if the geo:_code of the fact exists in the dimension table
-                                #se esiste, in the cpu_dict, foreign key enforcement is confirmed, then new row.......
+                                #enforce foreign key constraint for vendor_code through dictionary
                                
                                 if vendor_dict.get(f"{row_value}"):
                                     new_row = f"{new_row},{row_value}"
@@ -382,7 +316,7 @@ def create_tables():#(file_name,header):
                                     errors_count["fact"]["foreign_key_error"] += 1
                                     break
 
-                            #check if there is a NON - Float and put only the first 2f 
+                            #give to sales_usd and sales_currency only the first 2f 
                             else:
                                 if row_value:
                                     try:
@@ -396,21 +330,21 @@ def create_tables():#(file_name,header):
                                     line_check = False
                                     errors_count["fact"]["erroneous_field"] += 1
                                     break
+                                #evaluate cost from sampled percentage * sales_usd
                                 if row_key == "sales_uds":
                                     cost = row_value*derived_cost_by_day[sales_day]
                                     
+                        #insert cost
                         if line_check:    
                             new_row = f"{new_row},{cost:.2f}"
-                            #counter if everything is fine for the PK
-                            #line_check = False if fact_counter < 1403300 else True
                             new_row = f",{fact_counter}{new_row}"
                             fact_counter += 1
                             
-                    #populate all the CSV  
+                    #populate csv if everything went correctly
                     if line_check:
                         To_Populate.write(f"{new_row[1:]}\n")
     
-    #TODO: print dict of errors
+    #print errors' summary
     for table_name, errors in errors_count.items():
         print(f"{table_name} table; errors:")
         tot_errors = sum(errors.values())
@@ -418,12 +352,5 @@ def create_tables():#(file_name,header):
             print(f"{name_error}: {error}")
         print(f"tot erros: {tot_errors}")
     
-
-#main, to import the functions to other codes and projects 
 if __name__ == "__main__":
     create_tables()
-
-
-
-
-
