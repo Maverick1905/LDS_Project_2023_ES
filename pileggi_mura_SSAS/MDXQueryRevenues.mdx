@@ -1,0 +1,9 @@
+With Member perc_var as
+([Measures].[Revenue] - (parallelperiod([Time].[YQMD].[Year],
+1, [Time].[YQMD].currentmember),
+[Measures].[Revenue]))/(parallelperiod([Time].[YQMD].[Year],
+1, [Time].[YQMD].currentmember), [Measures].[Revenue]),
+format_string = "Percent"
+Select {[Measures].[Revenue],perc_var} on columns,
+([Time].[YQMD].[Year],[Cpu].[Brand].[Brand]) on rows
+from cpu_sales_fact
